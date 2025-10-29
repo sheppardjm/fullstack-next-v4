@@ -13,7 +13,7 @@ export function NavBar() {
         <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight text-gray-900"
+            className="font-bold text-xl tracking-tight text-gray-900"
           >
             Wikimasters
           </Link>
