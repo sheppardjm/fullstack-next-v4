@@ -1,7 +1,7 @@
-import db from "@/db";
-import { Article, articles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { usersSync } from "drizzle-orm/neon";
+import db from "@/db";
+import { articles } from "@/db/schema";
 
 export async function getArticles() {
   const res = await db
@@ -25,6 +25,7 @@ export async function getArticleById(id: number) {
       createdAt: articles.createdAt,
       content: articles.content,
       author: usersSync.name,
+      imageUrl: articles.imageUrl,
     })
     .from(articles)
     .where(eq(articles.id, id))

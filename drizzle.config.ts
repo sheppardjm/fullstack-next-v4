@@ -1,10 +1,10 @@
 import "dotenv/config";
-import { defineConfig } from "drizzle-kit";
 import assert from "node:assert";
+import { defineConfig } from "drizzle-kit";
 
 assert(
   process.env.DATABASE_URL,
-  "DATABASE_URL is not defined in environment variables"
+  "DATABASE_URL is not defined in environment variables",
 );
 
 export default defineConfig({

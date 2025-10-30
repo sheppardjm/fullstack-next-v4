@@ -1,5 +1,5 @@
-import { pgTable, serial, text, timestamp, boolean } from "drizzle-orm/pg-core";
 import { usersSync } from "drizzle-orm/neon";
+import { boolean, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const articles = pgTable("articles", {
   id: serial("id").primaryKey(),
