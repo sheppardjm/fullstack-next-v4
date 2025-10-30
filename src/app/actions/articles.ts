@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import summarizeArticle from "@/ai/summarize";
 import { authorizeUserToEditArticle } from "@/db/authz";
 import db from "@/db/index";
 import { articles } from "@/db/schema";
@@ -24,6 +25,7 @@ export type UpdateArticleInput = {
 };
 
 export async function createArticle(data: CreateArticleInput) {
+  const summary = await summarizeArticle(data.title || "", data.content || "");
   const user = await stackServerApp.getUser();
   if (!user) {
     throw new Error("❌ Unauthorized");
@@ -37,12 +39,14 @@ export async function createArticle(data: CreateArticleInput) {
     published: true,
     authorId: user.id,
     imageUrl: data.imageUrl ?? undefined,
+    summary,
   });
 
   return { success: true, message: "Article create logged" };
 }
 
 export async function updateArticle(id: string, data: UpdateArticleInput) {
+  const summary = await summarizeArticle(data.title || "", data.content || "");
   const user = await stackServerApp.getUser();
   if (!user) {
     throw new Error("❌ Unauthorized");
@@ -60,6 +64,7 @@ export async function updateArticle(id: string, data: UpdateArticleInput) {
       title: data.title,
       content: data.content,
       imageUrl: data.imageUrl ?? undefined,
+      summary: summary ?? undefined,
     })
     .where(eq(articles.id, +id));
 

@@ -11,6 +11,7 @@ export type ArticleList = {
   content: string;
   author: string | null;
   imageUrl?: string | null;
+  summary: string | null;
 };
 
 export async function getArticles(): Promise<ArticleList[]> {
@@ -27,6 +28,8 @@ export async function getArticles(): Promise<ArticleList[]> {
       createdAt: articles.createdAt,
       content: articles.content,
       author: usersSync.name,
+      summary: articles.summary,
+      imageUrl: articles.imageUrl,
     })
     .from(articles)
     .leftJoin(usersSync, eq(articles.authorId, usersSync.id));
@@ -60,6 +63,7 @@ export async function getArticleById(id: number) {
       content: articles.content,
       author: usersSync.name,
       imageUrl: articles.imageUrl,
+      summary: articles.summary,
     })
     .from(articles)
     .where(eq(articles.id, id))

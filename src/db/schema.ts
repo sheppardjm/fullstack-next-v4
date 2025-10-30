@@ -12,6 +12,7 @@ export const articles = pgTable("articles", {
     .notNull()
     .references(() => usersSync.id),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  summary: text("summary"),
 });
 
 const schema = { articles };

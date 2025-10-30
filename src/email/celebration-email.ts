@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 import { usersSync } from "drizzle-orm/neon";
-import resend from "@/email";
 import db from "@/db";
 import { articles } from "@/db/schema";
+import resend from "@/email";
 import CelebrationTemplate from "@/email/templates/celebration-template";
 
 const BASE_URL = process.env.VERCEL_URL
@@ -11,7 +11,7 @@ const BASE_URL = process.env.VERCEL_URL
 
 export default async function sendCelebrationEmail(
   articleId: number,
-  pageviews: number
+  pageviews: number,
 ) {
   const res = await db
     .select({
@@ -52,7 +52,7 @@ export default async function sendCelebrationEmail(
 
   if (!emailRes.error) {
     console.log(
-      `Celebration email sent to user ID ${id} for article ID ${articleId}`
+      `Celebration email sent to user ID ${id} for article ID ${articleId}`,
     );
   }
 }
